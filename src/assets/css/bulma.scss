@@ -1,0 +1,84 @@
+@import "~bulma/sass/utilities/initial-variables";
+@import "~bulma/sass/utilities/functions";
+
+// 2. Set your own initial variables
+// Update blue
+$blue: #3E52FF;
+// Add pink and its invert
+$pink: #ffb3b3;
+$pink-invert: #fff;
+// Add a serif family
+$family-serif: -apple-system, "Roboto", "Helvetica Neue", "Droid Sans", "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "Meiryo", "メイリオ", "Osaka", "MS PGothic", arial, sans-serif;
+
+// 3. Set the derived variables
+// Use the new pink as the primary color
+$primary: $pink;
+$primary-invert: $pink-invert;
+// Use the existing orange as the danger color
+$danger: $orange;
+// Use the new serif family
+$family-primary: $family-serif;
+
+// 4. Setup your Custom Colors
+
+// 5. Add new color variables to the color map.
+@import "~bulma/sass/utilities/derived-variables.sass";
+
+// 6. Import the rest of Bulma
+@import "~bulma/bulma";
+
+body {
+  font-family: -apple-system, "Roboto", "Helvetica Neue", "Droid Sans", "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "Meiryo", "メイリオ", "Osaka", "MS PGothic", arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  color: #666;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+a {
+  color: #666;
+}
+
+h1 {
+  font-size: 32px;
+  margin: 15px 0;
+}
+
+h2 {
+  font-size: 20px;
+  margin-bottom: 50px;
+  font-weight: 600;
+}
+
+h3 {
+  font-size: 18px;
+  padding: 40px 0;
+  font-weight: 600;
+}
+
+ul {
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
+
+input {
+  border: 1px solid #ccc;
+  padding: 10px;
+  color: #666;
+  font-weight: 600;
+  font-size: 18px;
+  border-radius: 10px;
+}
+
+textarea {
+  border: 1px solid #ccc;
+  padding: 10px;
+  color: #666;
+  font-weight: 600;
+  font-size: 18px;
+  border-radius: 10px;
+}

@@ -30,12 +30,16 @@ module.exports = {
   /*
    ** Global CSS
    */
-  css: [],
+  css: [
+    '@/assets/css/bulma.scss'
+  ],
   /*
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
    */
-  plugins: [],
+   plugins: [
+     '~/plugins/firebase'
+   ],
 
   // router: {
   //   base: baseDir,
@@ -89,14 +93,14 @@ module.exports = {
           }
         })
       }
-    }
-    // postcss: {
-    //   preset: {
-    //     features: {
-    //       customProperties: false,
-    //     },
-    //   },
-    // },
+    },
+    postcss: {
+      preset: {
+        features: {
+          customProperties: false,
+        },
+      },
+    },
   },
 }
 
