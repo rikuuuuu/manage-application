@@ -2,31 +2,26 @@
   <div class="menu-bar">
     <div class="flex">
       <div class="menu">
-        <div class="menu-icon">
+        <div class="menu-o2-icon">
           <a href="/" class="links">
-            <!-- <img alt=""> -->
+            <img src="/nuxt.png" alt="" />
           </a>
         </div>
         <div class="menu-container">
           <div class="menu-contents">
-            <button type="button" name="button">サンプル</button>
             <a class="links"><p>出品者</p></a>
             <a class="links"><p>購入者</p></a>
             <a class="links"><p>レッスンルーム</p></a>
             <a class="links"><p>レッスン</p></a>
-            <a class="links"><p>パートナー</p></a>
             <a class="links"><p>売り上げ</p></a>
             <a class="links"><p>入出金</p></a>
             <a class="links"><p>申請承認待ち</p></a>
             <a class="links"><p>ニュース作成</p></a>
-            <a class="links"><p>レッスン監視</p></a>
             <a class="links"><p>リテンション</p></a>
           </div>
         </div>
       </div>
-      <!-- <div @click.self="$emit('close')" v-bind:class="{ overflow: overflow }">
-
-      </div> -->
+      <div @click.self="$emit('close')" :class="{ overflow: overflow }"></div>
     </div>
   </div>
 </template>
@@ -34,7 +29,7 @@
 <script>
 export default {
   components: {},
-  props: [],
+  props: ['overflow'],
   created() {},
   mounted() {},
   methods: {},
@@ -42,11 +37,7 @@ export default {
 </script>
 
 <style>
-button {
-  /* background-color: #3E52FF; */
-}
-
-/* .menu-bar {
+.menu-bar {
   height: 100vh;
   position: -webkit-sticky;
   position: sticky;
@@ -54,7 +45,7 @@ button {
 }
 
 .menu {
-  background-color: #3E52FF;
+  background-color: #3e52ff;
   width: 256px;
   height: 100vh;
   position: -webkit-sticky;
@@ -75,7 +66,6 @@ button {
 }
 
 .menu-container {
-
 }
 
 .menu-contents {
@@ -84,7 +74,7 @@ button {
 }
 
 .menu-contents p {
-  color: #FFF;
+  color: #fff;
   margin-bottom: 30px;
 }
 
@@ -94,15 +84,12 @@ button {
 }
 
 @media (max-width: 1023px) {
-
   .menu-bar {
     display: none;
   }
-
 }
 
 @media (max-width: 769px) {
-
   .menu-o2-icon {
     height: 150px;
   }
@@ -116,6 +103,5 @@ button {
     font-size: 14px;
     margin-bottom: 25px;
   }
-
-} */
+}
 </style>

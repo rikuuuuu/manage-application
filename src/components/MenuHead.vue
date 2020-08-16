@@ -1,29 +1,33 @@
 <template>
   <section class="container">
-    <menu-bar />
+    <menu-bar
+      :class="{ menumodal: isMenu }"
+      :overflow="isMenu"
+      @close="close"
+    />
     <div class="maincontent">
-      <!-- <head-contents v-bind:title='title' @menubar="menubar"/>
-      <slot/> -->
+      <head-contents :title="title" @menubar="menubar" />
+      <slot />
     </div>
   </section>
 </template>
 
 <script>
 import MenuBar from '~/components/MenuBar'
-// import HeadContents from '~/components/HeadContents'
+import HeadContents from '~/components/HeadContents'
 
 export default {
   components: {
     MenuBar,
-    // HeadContents
+    HeadContents,
   },
   data() {
     return {
-      // isMenu: false,
+      isMenu: false,
       // isAdminPartner: false
     }
   },
-  // props: ['title'],
+  props: ['title'],
   mounted() {
     // const auth = this.$store.state.auth
     // const adminpartner = this.$store.state.adminpartner
@@ -37,18 +41,18 @@ export default {
     //   return this.$router.push('/admin/login')
   },
   methods: {
-    // menubar() {
-    //   this.isMenu = true
-    // },
-    // close() {
-    //   this.isMenu = false
-    // },
+    menubar() {
+      this.isMenu = true
+    },
+    close() {
+      this.isMenu = false
+    },
   },
 }
 </script>
 
 <style>
-/* .menumodal {
+.menumodal {
   display: block;
   position: fixed;
   z-index: 30;
@@ -64,5 +68,5 @@ export default {
   100% {
     transform: translateX(0px);
   }
-} */
+}
 </style>
