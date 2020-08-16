@@ -1,23 +1,26 @@
 <template>
   <div class="login-container">
-    <!-- <div v-show="loading" class="loader center-loader"></div>
-    <div  v-show="!loading" class="login-contents box-shadow">
+    <div v-show="loading" class="loader center-loader"></div>
+    <div v-show="!loading" class="login-contents box-shadow">
       <div class="login-items">
         <div class="login-img">
-          <img src="/O2_fix.png" alt="">
-          <p>管理者ログイン</p>
+          <img src="/nuxt.png" alt="" />
+          <p>簡易ログイン</p>
         </div>
         <div class="login-inputs-contents">
           <div class="login-inputs">
-            <input type="password" name="" value="" v-model="password" placeholder="パスワード">
-            <button class="button-b" type="button" name="button" @click="login">ログイン</button>
-            <nuxt-link to="/admin/partnerlogin" class="">
-              <p class="plogin">パートナー事務所の方はこちら</p>
-            </nuxt-link>
+            <input
+              v-model="password"
+              type="password"
+              placeholder="パスワード"
+            />
+            <button class="button-b" type="button" name="button" @click="login">
+              ログイン
+            </button>
           </div>
         </div>
       </div>
-    </div> -->
+    </div>
   </div>
 </template>
 
@@ -26,43 +29,49 @@ export default {
   components: {},
   data() {
     return {
-      // loading: true,
-      // password: '',
-      // pass: ''
+      loading: true,
+      password: '',
+      pass: '',
     }
   },
   computed: {},
   created() {
-    // this.fetch()
+    this.fetch()
   },
   mounted() {},
   methods: {
-    // fetch() {
-    //   this.$firestore.collection('adminPassword').get().then(snapshot => {
-    //     snapshot.forEach(doc => {
-    //       this.pass = doc.data()
-    //       this.loading = false
-    //     })
-    //   }).catch(error => {
-    //     this.loading = false
-    //   })
-    // },
-    // login() {
-    //   if (this.password === this.pass.id) {
-    //     const auth = true
-    //     this.$store.commit("changeAuth", auth);
-    //
-    //     this.$router.push('/')
-    //   } else {
-    //     this.$toast.error('パスワードが違います')
-    //   }
-    // }
+    fetch() {
+      this.$firestore
+        .collection('adminPassword')
+        .get()
+        .then((snapshot) => {
+          snapshot.forEach((doc) => {
+            this.pass = doc.data()
+            this.loading = false
+            this.password = this.pass.id
+          })
+        })
+        .catch((error) => {
+          this.loading = false
+          console.log(error)
+        })
+    },
+    login() {
+      if (this.password === this.pass.id) {
+        // const auth = true
+        // this.$store.commit('changeAuth', auth);
+        this.$toast.success('ログインしました')
+        this.$router.push('/')
+      } else {
+        this.$toast.error('パスワードが違います')
+      }
+    },
   },
 }
 </script>
 
 <style>
-/* .login-container {
+.login-container {
   width: 100vw;
   height: 100vh;
   display: flex;
@@ -71,7 +80,7 @@ export default {
 }
 
 .login-container .center-loader {
-  margin: 0!important;
+  margin: 0 !important;
 }
 
 .login-contents {
@@ -82,7 +91,7 @@ export default {
 }
 
 .login-items {
-margin: 60px 0 80px;
+  margin: 60px 0 80px;
 }
 
 .login-img {
@@ -96,7 +105,6 @@ margin: 60px 0 80px;
 }
 
 .login-inputs-contents {
-
 }
 
 .login-inputs {
@@ -126,7 +134,6 @@ margin: 60px 0 80px;
 }
 
 @media (max-width: 769px) {
-
   .login-contents {
     width: 80vw;
     height: fit-content;
@@ -134,7 +141,7 @@ margin: 60px 0 80px;
   }
 
   .login-items {
-  margin: 30px 0 70px;
+    margin: 30px 0 70px;
   }
 
   .login-img {
@@ -148,7 +155,6 @@ margin: 60px 0 80px;
   }
 
   .login-inputs-contents {
-
   }
 
   .login-inputs {
@@ -172,6 +178,5 @@ margin: 60px 0 80px;
     height: 40px;
     border-radius: 20px;
   }
-
-} */
+}
 </style>

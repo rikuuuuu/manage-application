@@ -26,8 +26,13 @@ module.exports = {
   ],
   modules: [
     '@nuxtjs/axios',
+    '@nuxtjs/toast',
   ],
   axios: {},
+  toast: {
+    position: 'top-right',
+    duration: 2000
+  },
   srcDir: 'src/',
   buildDir: 'functions/nuxt',
   build: {
