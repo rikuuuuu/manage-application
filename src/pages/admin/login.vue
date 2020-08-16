@@ -22,8 +22,8 @@
 </template>
 
 <script>
-
 export default {
+  components: {},
   data() {
     return {
       // loading: true,
@@ -31,15 +31,11 @@ export default {
       // pass: ''
     }
   },
-  components: {
-  },
-  computed: {
-  },
+  computed: {},
   created() {
     // this.fetch()
   },
-  mounted() {
-  },
+  mounted() {},
   methods: {
     // fetch() {
     //   this.$firestore.collection('adminPassword').get().then(snapshot => {
@@ -61,7 +57,7 @@ export default {
     //     this.$toast.error('パスワードが違います')
     //   }
     // }
-  }
+  },
 }
 </script>
 
@@ -178,6 +174,4 @@ margin: 60px 0 80px;
   }
 
 } */
-
-
 </style>
