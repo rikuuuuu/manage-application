@@ -1,7 +1,7 @@
 <template>
   <div class="">
     <div v-show="pageloading" class="loader center-loader"></div>
-    <menu-head v-show="!pageloading" v-bind:title="'購入者一覧'">
+    <menu-head v-show="!pageloading" :title="'購入者一覧'">
       <div class="home-container">
         <div class="fans-contents main-contents">
           <div class="fans-title flex">
@@ -72,7 +72,7 @@
             </div>
           </div>
           <div class="tabs-container">
-            <div class="tabs-left tabs-content">
+            <div v-show="fanspayment" class="tabs-left tabs-content">
               <button
                 type="button"
                 name="button"
@@ -105,21 +105,21 @@
           </div>
           <div v-show="loading" class="loader"></div>
           <div v-show="!loading && fansall" class="fansall-content">
-            <!-- <ul v-show="fans.length !== 0" class="lists list-box-shadow">
+            <ul v-show="fans.length !== 0" class="lists list-box-shadow">
               <All-Fans v-for="(fan, index) in fans" :key="index" :fan="fan" />
-            </ul> -->
-            <p class="no-talks">
+            </ul>
+            <p v-show="fans.length === 0" class="no-talks">
               購入者が存在しません
             </p>
           </div>
-          <div v-show="!loading && fanspayment" class="fanspayment-content">
-            <!-- <ul v-show="fans.length !== 0" class="lists list-box-shadow">
+          <!-- <div v-show="!loading && fanspayment" class="fanspayment-content">
+            <ul v-show="fans.length !== 0" class="lists list-box-shadow">
               <All-Fans v-bind:purchasestate="purchasestate" v-bind:fanspayment="fanspayment" v-for="(fan, index) in fans" :key="index" :fan="fan" />
-            </ul> -->
+            </ul>
             <p class="no-talks">
               購入者が存在しません
             </p>
-          </div>
+          </div> -->
         </div>
       </div>
     </menu-head>
@@ -128,12 +128,12 @@
 
 <script>
 import MenuHead from '~/components/MenuHead'
-// import AllFans from '~/components/AllFans'
+import AllFans from '~/components/AllFans'
 
 export default {
   components: {
     MenuHead,
-    // AllFans
+    AllFans,
   },
   data() {
     return {
@@ -159,222 +159,221 @@ export default {
     // payments() {
     //   return this.$store.getters['payment/payments']
     // },
-    // fans() {
-    //
-    //   var items = this.$store.getters['fan/fans']
-    //
-    //   var list = items.slice();
-    //
-    //   if (!!this.sort.key) {
-    //     list.sort((a, b) => {
-    //       a = a.info[this.sort.key]
-    //       b = b.info[this.sort.key]
-    //
-    //       return (a === b ? 0 : a > b ? 1 : -1) * (this.sort.isAsc ? 1 : -1)
-    //     });
-    //   }
-    //
-    //   if (this.selectName) {
-    //     list = list.filter(element => {
-    //       if ( element.info.nickName ) {
-    //         if ( element.info.nickName.indexOf(this.selectName) != -1) {
-    //           return element.info.nickName
-    //         }
-    //       }
-    //     });
-    //   }
-    //
-    //   // ファン購入の方
-    //   if (this.fanspayment) {
-    //
-    //     var today = this.$dayjs().format('YYYY/MM/DD')
-    //     var thismonth = this.$dayjs().format('YYYY/MM')
-    //     var thisweek = this.$dayjs().startOf('week').format('YYYY/MM/DD')
-    //
-    //     switch (this.purchasestate) {
-    //       case 'all':
-    //
-    //         // 購入あるファンのみ表示
-    //         list = list.filter(element => {
-    //           for ( var n in this.payments ) {
-    //             // 0円を含めない
-    //             if (element.info.userid === this.payments[n].pay.userId && this.payments[n].pay.price && this.payments[n].pay.price !== 0) {
-    //               return element
-    //             }
-    //           }
-    //         })
-    //
-    //         list.sort((a, b) => {
-    //
-    //           var salesa = 0
-    //           var salesb = 0
-    //
-    //           for ( var n in this.payments ) {
-    //             if (a.info.userid === this.payments[n].pay.userId && this.payments[n].pay.price && this.payments[n].pay.price !== 0) {
-    //               salesa += this.payments[n].pay.price * (this.payments[n].pay.percent / 100)
-    //             }
-    //             if (b.info.userid === this.payments[n].pay.userId && this.payments[n].pay.price && this.payments[n].pay.price !== 0) {
-    //               salesb += this.payments[n].pay.price * (this.payments[n].pay.percent / 100)
-    //             }
-    //           }
-    //
-    //           a = salesa
-    //           b = salesb
-    //
-    //           return (a === b ? 0 : a > b ? 1 : -1) * (this.sort.isAsc ? 1 : -1)
-    //         });
-    //
-    //         break;
-    //       case 'day':
-    //
-    //         list = list.filter(element => {
-    //           for ( var n in this.payments ) {
-    //             var createdday = this.$dayjs(this.payments[n].pay.sentAt * 1000).format('YYYY/MM/DD')
-    //             if (element.info.userid === this.payments[n].pay.userId && today === createdday) {
-    //               if (this.payments[n].pay.price && this.payments[n].pay.price !== 0) {
-    //                 return element
-    //               }
-    //             }
-    //           }
-    //         })
-    //
-    //         list.sort((a, b) => {
-    //
-    //           var salesa = 0
-    //           var salesb = 0
-    //
-    //           for ( var n in this.payments ) {
-    //             var createdat = this.payments[n].pay.sentAt * 1000
-    //             var createdday = this.$dayjs(createdat).format('YYYY/MM/DD')
-    //             if (a.info.userid === this.payments[n].pay.userId && today === createdday && this.payments[n].pay.price && this.payments[n].pay.price !== 0) {
-    //               salesa += this.payments[n].pay.price * (this.payments[n].pay.percent / 100)
-    //             }
-    //             if (b.info.userid === this.payments[n].pay.userId && today === createdday && this.payments[n].pay.price && this.payments[n].pay.price !== 0) {
-    //               salesb += this.payments[n].pay.price * (this.payments[n].pay.percent / 100)
-    //             }
-    //           }
-    //
-    //           a = salesa
-    //           b = salesb
-    //
-    //           return (a === b ? 0 : a > b ? 1 : -1) * (this.sort.isAsc ? 1 : -1)
-    //         });
-    //         break;
-    //       case 'week':
-    //
-    //         list = list.filter(element => {
-    //           for ( var n in this.payments ) {
-    //             var createdday = this.$dayjs(this.payments[n].pay.sentAt * 1000).startOf('week').format('YYYY/MM/DD')
-    //             if (element.info.userid === this.payments[n].pay.userId && thisweek === createdday && this.payments[n].pay.price && this.payments[n].pay.price !== 0) {
-    //               return element
-    //             }
-    //           }
-    //         })
-    //
-    //         list.sort((a, b) => {
-    //
-    //           var salesa = 0
-    //           var salesb = 0
-    //
-    //           for ( var n in this.payments ) {
-    //             var createdday = this.$dayjs(this.payments[n].pay.sentAt * 1000).startOf('week').format('YYYY/MM/DD')
-    //             if (a.info.userid === this.payments[n].pay.userId && thisweek === createdday) {
-    //               salesa += this.payments[n].pay.price * (this.payments[n].pay.percent / 100)
-    //             }
-    //             if (b.info.userid === this.payments[n].pay.userId && thisweek === createdday && this.payments[n].pay.price && this.payments[n].pay.price !== 0) {
-    //               salesb += this.payments[n].pay.price * (this.payments[n].pay.percent / 100)
-    //             }
-    //           }
-    //
-    //           a = salesa
-    //           b = salesb
-    //
-    //           return (a === b ? 0 : a > b ? 1 : -1) * (this.sort.isAsc ? 1 : -1)
-    //         });
-    //         break;
-    //       case 'month':
-    //
-    //         list = list.filter(element => {
-    //           for ( var n in this.payments ) {
-    //             var createdday = this.$dayjs(this.payments[n].pay.sentAt * 1000).format('YYYY/MM')
-    //             if (element.info.userid === this.payments[n].pay.userId && thismonth === createdday && this.payments[n].pay.price && this.payments[n].pay.price !== 0) {
-    //               return element
-    //             }
-    //           }
-    //         })
-    //
-    //         list.sort((a, b) => {
-    //
-    //           var salesa = 0
-    //           var salesb = 0
-    //
-    //           for ( var n in this.payments ) {
-    //             var createdday = this.$dayjs(this.payments[n].pay.sentAt * 1000).format('YYYY/MM')
-    //             if (a.info.userid === this.payments[n].pay.userId && thismonth === createdday && this.payments[n].pay.price && this.payments[n].pay.price !== 0) {
-    //               salesa += this.payments[n].pay.price * (this.payments[n].pay.percent / 100)
-    //             }
-    //             if (b.info.userid === this.payments[n].pay.userId && thismonth === createdday && this.payments[n].pay.price && this.payments[n].pay.price !== 0) {
-    //               salesb += this.payments[n].pay.price * (this.payments[n].pay.percent / 100)
-    //             }
-    //           }
-    //
-    //           a = salesa
-    //           b = salesb
-    //
-    //           return (a === b ? 0 : a > b ? 1 : -1) * (this.sort.isAsc ? 1 : -1)
-    //         });
-    //         break;
-    //       default:
-    //     }
-    //   }
-    //
-    //   // ファン登録の方
-    //   if (!this.fanspayment) {
-    //
-    //     if (this.selecttoday) {
-    //       list = list.filter(element => {
-    //         if ( element.info.joined ) {
-    //           const createdat = this.$dayjs(element.info.joined * 1000).format('YYYY/MM/DD')
-    //           const dayjsnow = this.$dayjs().format('YYYY/MM/DD')
-    //           if (createdat == dayjsnow) {
-    //             return element.info.joined
-    //           }
-    //         }
-    //       })
-    //     }
-    //
-    //     if (this.selectweek) {
-    //       list = list.filter(element => {
-    //         if ( element.info.joined ) {
-    //           const createdat = this.$dayjs(element.info.joined * 1000).startOf('week').format('YYYY/MM/DD')
-    //           const dayjsnow = this.$dayjs().startOf('week').format('YYYY/MM/DD')
-    //           if (createdat == dayjsnow) {
-    //             return element.info.joined
-    //           }
-    //         }
-    //       })
-    //     }
-    //
-    //     if (this.selectmonth) {
-    //       list = list.filter(element => {
-    //         if ( element.info.joined ) {
-    //           const createdat = this.$dayjs(element.info.joined * 1000).format('YYYY/MM')
-    //           const dayjsnow = this.$dayjs().format('YYYY/MM')
-    //           if (createdat == dayjsnow) {
-    //             return element.info.joined
-    //           }
-    //         }
-    //       })
-    //     }
-    //
-    //   }
-    //
-    //   return list;
-    // }
+    fans() {
+      const items = this.$store.getters['fan/fans']
+
+      let list = items.slice()
+
+      if (this.sort.key) {
+        list.sort((a, b) => {
+          a = a.info[this.sort.key]
+          b = b.info[this.sort.key]
+
+          return (a === b ? 0 : a > b ? 1 : -1) * (this.sort.isAsc ? 1 : -1)
+        })
+      }
+
+      if (this.selectName) {
+        list = list.filter((element) => {
+          if (element.info.nickName) {
+            if (element.info.nickName.includes(this.selectName) !== -1) {
+              return element.info.nickName
+            }
+          }
+        })
+      }
+
+      // ファン購入の方
+      // if (this.fanspayment) {
+      //
+      //   var today = this.$dayjs().format('YYYY/MM/DD')
+      //   var thismonth = this.$dayjs().format('YYYY/MM')
+      //   var thisweek = this.$dayjs().startOf('week').format('YYYY/MM/DD')
+      //
+      //   switch (this.purchasestate) {
+      //     case 'all':
+      //
+      //       // 購入あるファンのみ表示
+      //       list = list.filter(element => {
+      //         for ( var n in this.payments ) {
+      //           // 0円を含めない
+      //           if (element.info.userid === this.payments[n].pay.userId && this.payments[n].pay.price && this.payments[n].pay.price !== 0) {
+      //             return element
+      //           }
+      //         }
+      //       })
+      //
+      //       list.sort((a, b) => {
+      //
+      //         var salesa = 0
+      //         var salesb = 0
+      //
+      //         for ( var n in this.payments ) {
+      //           if (a.info.userid === this.payments[n].pay.userId && this.payments[n].pay.price && this.payments[n].pay.price !== 0) {
+      //             salesa += this.payments[n].pay.price * (this.payments[n].pay.percent / 100)
+      //           }
+      //           if (b.info.userid === this.payments[n].pay.userId && this.payments[n].pay.price && this.payments[n].pay.price !== 0) {
+      //             salesb += this.payments[n].pay.price * (this.payments[n].pay.percent / 100)
+      //           }
+      //         }
+      //
+      //         a = salesa
+      //         b = salesb
+      //
+      //         return (a === b ? 0 : a > b ? 1 : -1) * (this.sort.isAsc ? 1 : -1)
+      //       });
+      //
+      //       break;
+      //     case 'day':
+      //
+      //       list = list.filter(element => {
+      //         for ( var n in this.payments ) {
+      //           var createdday = this.$dayjs(this.payments[n].pay.sentAt * 1000).format('YYYY/MM/DD')
+      //           if (element.info.userid === this.payments[n].pay.userId && today === createdday) {
+      //             if (this.payments[n].pay.price && this.payments[n].pay.price !== 0) {
+      //               return element
+      //             }
+      //           }
+      //         }
+      //       })
+      //
+      //       list.sort((a, b) => {
+      //
+      //         var salesa = 0
+      //         var salesb = 0
+      //
+      //         for ( var n in this.payments ) {
+      //           var createdat = this.payments[n].pay.sentAt * 1000
+      //           var createdday = this.$dayjs(createdat).format('YYYY/MM/DD')
+      //           if (a.info.userid === this.payments[n].pay.userId && today === createdday && this.payments[n].pay.price && this.payments[n].pay.price !== 0) {
+      //             salesa += this.payments[n].pay.price * (this.payments[n].pay.percent / 100)
+      //           }
+      //           if (b.info.userid === this.payments[n].pay.userId && today === createdday && this.payments[n].pay.price && this.payments[n].pay.price !== 0) {
+      //             salesb += this.payments[n].pay.price * (this.payments[n].pay.percent / 100)
+      //           }
+      //         }
+      //
+      //         a = salesa
+      //         b = salesb
+      //
+      //         return (a === b ? 0 : a > b ? 1 : -1) * (this.sort.isAsc ? 1 : -1)
+      //       });
+      //       break;
+      //     case 'week':
+      //
+      //       list = list.filter(element => {
+      //         for ( var n in this.payments ) {
+      //           var createdday = this.$dayjs(this.payments[n].pay.sentAt * 1000).startOf('week').format('YYYY/MM/DD')
+      //           if (element.info.userid === this.payments[n].pay.userId && thisweek === createdday && this.payments[n].pay.price && this.payments[n].pay.price !== 0) {
+      //             return element
+      //           }
+      //         }
+      //       })
+      //
+      //       list.sort((a, b) => {
+      //
+      //         var salesa = 0
+      //         var salesb = 0
+      //
+      //         for ( var n in this.payments ) {
+      //           var createdday = this.$dayjs(this.payments[n].pay.sentAt * 1000).startOf('week').format('YYYY/MM/DD')
+      //           if (a.info.userid === this.payments[n].pay.userId && thisweek === createdday) {
+      //             salesa += this.payments[n].pay.price * (this.payments[n].pay.percent / 100)
+      //           }
+      //           if (b.info.userid === this.payments[n].pay.userId && thisweek === createdday && this.payments[n].pay.price && this.payments[n].pay.price !== 0) {
+      //             salesb += this.payments[n].pay.price * (this.payments[n].pay.percent / 100)
+      //           }
+      //         }
+      //
+      //         a = salesa
+      //         b = salesb
+      //
+      //         return (a === b ? 0 : a > b ? 1 : -1) * (this.sort.isAsc ? 1 : -1)
+      //       });
+      //       break;
+      //     case 'month':
+      //
+      //       list = list.filter(element => {
+      //         for ( var n in this.payments ) {
+      //           var createdday = this.$dayjs(this.payments[n].pay.sentAt * 1000).format('YYYY/MM')
+      //           if (element.info.userid === this.payments[n].pay.userId && thismonth === createdday && this.payments[n].pay.price && this.payments[n].pay.price !== 0) {
+      //             return element
+      //           }
+      //         }
+      //       })
+      //
+      //       list.sort((a, b) => {
+      //
+      //         var salesa = 0
+      //         var salesb = 0
+      //
+      //         for ( var n in this.payments ) {
+      //           var createdday = this.$dayjs(this.payments[n].pay.sentAt * 1000).format('YYYY/MM')
+      //           if (a.info.userid === this.payments[n].pay.userId && thismonth === createdday && this.payments[n].pay.price && this.payments[n].pay.price !== 0) {
+      //             salesa += this.payments[n].pay.price * (this.payments[n].pay.percent / 100)
+      //           }
+      //           if (b.info.userid === this.payments[n].pay.userId && thismonth === createdday && this.payments[n].pay.price && this.payments[n].pay.price !== 0) {
+      //             salesb += this.payments[n].pay.price * (this.payments[n].pay.percent / 100)
+      //           }
+      //         }
+      //
+      //         a = salesa
+      //         b = salesb
+      //
+      //         return (a === b ? 0 : a > b ? 1 : -1) * (this.sort.isAsc ? 1 : -1)
+      //       });
+      //       break;
+      //     default:
+      //   }
+      // }
+      //
+      // // ファン登録の方
+      // if (!this.fanspayment) {
+      //
+      //   if (this.selecttoday) {
+      //     list = list.filter(element => {
+      //       if ( element.info.joined ) {
+      //         const createdat = this.$dayjs(element.info.joined * 1000).format('YYYY/MM/DD')
+      //         const dayjsnow = this.$dayjs().format('YYYY/MM/DD')
+      //         if (createdat == dayjsnow) {
+      //           return element.info.joined
+      //         }
+      //       }
+      //     })
+      //   }
+      //
+      //   if (this.selectweek) {
+      //     list = list.filter(element => {
+      //       if ( element.info.joined ) {
+      //         const createdat = this.$dayjs(element.info.joined * 1000).startOf('week').format('YYYY/MM/DD')
+      //         const dayjsnow = this.$dayjs().startOf('week').format('YYYY/MM/DD')
+      //         if (createdat == dayjsnow) {
+      //           return element.info.joined
+      //         }
+      //       }
+      //     })
+      //   }
+      //
+      //   if (this.selectmonth) {
+      //     list = list.filter(element => {
+      //       if ( element.info.joined ) {
+      //         const createdat = this.$dayjs(element.info.joined * 1000).format('YYYY/MM')
+      //         const dayjsnow = this.$dayjs().format('YYYY/MM')
+      //         if (createdat == dayjsnow) {
+      //           return element.info.joined
+      //         }
+      //       }
+      //     })
+      //   }
+      //
+      // }
+
+      return list
+    },
   },
   created() {},
   mounted() {
-    // this.$store.dispatch('fan/fetchFans')
+    this.$store.dispatch('fan/fetchFans')
     // this.$store.dispatch('payment/fetchPayments')
     // this.$store.dispatch('talk/fetchTalks')
 

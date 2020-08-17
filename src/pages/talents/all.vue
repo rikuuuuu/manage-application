@@ -103,21 +103,25 @@
           </div>
           <div v-show="loading" class="loader"></div>
           <div v-show="!loading && talentsall" class="talentsall-content">
-            <!-- <ul v-show="talents.length !== 0" class="lists list-box-shadow">
-              <All-Talents v-for="(talent, index) in talents" :key="index" :talent="talent" />
-            </ul> -->
-            <p class="no-talks">
+            <ul v-show="talents.length !== 0" class="lists list-box-shadow">
+              <All-Talents
+                v-for="(talent, index) in talents"
+                :key="index"
+                :talent="talent"
+              />
+            </ul>
+            <p v-show="talents.length === 0" class="no-talks">
               出品者が存在しません
             </p>
           </div>
-          <div v-show="!loading && talentssale" class="talentssales-content">
-            <!-- <ul v-show="talents.length !== 0" class="lists list-box-shadow">
+          <!-- <div v-show="!loading && talentssale" class="talentssales-content">
+            <ul v-show="talents.length !== 0" class="lists list-box-shadow">
               <All-Talents v-for="(talent, index) in talents" v-bind:paymentstate="paymentstate" v-bind:talentssale="talentssale" :key="index" :talent="talent" />
-            </ul> -->
+            </ul>
             <p class="no-talks">
               出品者が存在しません
             </p>
-          </div>
+          </div> -->
         </div>
       </div>
     </menu-head>
@@ -126,12 +130,12 @@
 
 <script>
 import MenuHead from '~/components/MenuHead'
-// import AllTalents from '~/components/AllTalents'
+import AllTalents from '~/components/AllTalents'
 
 export default {
   components: {
     MenuHead,
-    // AllTalents
+    AllTalents,
   },
   data() {
     return {
@@ -163,206 +167,206 @@ export default {
     // payments() {
     //   return this.$store.getters['payment/payments']
     // },
-    // talents() {
-    //   var items = this.$store.getters['talent/talents']
-    //   var payments = this.payments
-    //
-    //   var list = items.slice();
-    //
-    //   if (!!this.sort.key) {
-    //     list.sort((a, b) => {
-    //       a = a.info[this.sort.key]
-    //       b = b.info[this.sort.key]
-    //
-    //       return (a === b ? 0 : a > b ? 1 : -1) * (this.sort.isAsc ? 1 : -1)
-    //     });
-    //   }
-    //
-    //   // タレント売り上げの方
-    //   if (this.talentssale) {
-    //
-    //     var today = this.$dayjs().format('YYYY/MM/DD')
-    //     var thismonth = this.$dayjs().format('YYYY/MM')
-    //     var thisweek = this.$dayjs().startOf('week').format('YYYY/MM/DD')
-    //
-    //     switch (this.paymentstate) {
-    //       case 'all':
-    //
-    //         // 売り上げあるタレントのみ表示
-    //         list = list.filter(element => {
-    //           if (this.payments.find(p => p.pay.talentId === element.info.userid)) {
-    //             return element
-    //           }
-    //         })
-    //
-    //         list.sort((a, b) => {
-    //
-    //           var salesa = 0
-    //           var salesb = 0
-    //
-    //           for ( var n in this.payments ) {
-    //             if (a.info.userid === this.payments[n].pay.talentId) {
-    //               salesa += this.payments[n].pay.balance
-    //             }
-    //             if (b.info.userid === this.payments[n].pay.talentId) {
-    //               salesb += this.payments[n].pay.balance
-    //             }
-    //           }
-    //
-    //           a = salesa
-    //           b = salesb
-    //
-    //           return (a === b ? 0 : a > b ? 1 : -1) * (this.sort.isAsc ? 1 : -1)
-    //         });
-    //
-    //         break;
-    //       case 'day':
-    //
-    //         list = list.filter(element => {
-    //           for ( var n in this.payments ) {
-    //             var createdday = this.$dayjs(this.payments[n].pay.sentAt * 1000).format('YYYY/MM/DD')
-    //             if (element.info.userid === this.payments[n].pay.talentId && today === createdday) {
-    //               return element
-    //             }
-    //           }
-    //         })
-    //
-    //         list.sort((a, b) => {
-    //
-    //           var salesa = 0
-    //           var salesb = 0
-    //
-    //           for ( var n in this.payments ) {
-    //             var createdday = this.$dayjs(this.payments[n].pay.sentAt * 1000).format('YYYY/MM/DD')
-    //             if (a.info.userid === this.payments[n].pay.talentId && today === createdday) {
-    //               salesa += this.payments[n].pay.balance
-    //             }
-    //             if (b.info.userid === this.payments[n].pay.talentId && today === createdday) {
-    //               salesb += this.payments[n].pay.balance
-    //             }
-    //           }
-    //
-    //           a = salesa
-    //           b = salesb
-    //
-    //           return (a === b ? 0 : a > b ? 1 : -1) * (this.sort.isAsc ? 1 : -1)
-    //         });
-    //         break;
-    //       case 'week':
-    //
-    //         list = list.filter(element => {
-    //           for ( var n in this.payments ) {
-    //             var createdday = this.$dayjs(this.payments[n].pay.sentAt * 1000).startOf('week').format('YYYY/MM/DD')
-    //             if (element.info.userid === this.payments[n].pay.talentId && thisweek === createdday) {
-    //               return element
-    //             }
-    //           }
-    //         })
-    //
-    //         list.sort((a, b) => {
-    //
-    //           var salesa = 0
-    //           var salesb = 0
-    //
-    //           for ( var n in this.payments ) {
-    //             var createdday = this.$dayjs(this.payments[n].pay.sentAt * 1000).startOf('week').format('YYYY/MM/DD')
-    //             if (a.info.userid === this.payments[n].pay.talentId && thisweek === createdday) {
-    //               salesa += this.payments[n].pay.balance
-    //             }
-    //             if (b.info.userid === this.payments[n].pay.talentId && thisweek === createdday) {
-    //               salesb += this.payments[n].pay.balance
-    //             }
-    //           }
-    //
-    //           a = salesa
-    //           b = salesb
-    //
-    //           return (a === b ? 0 : a > b ? 1 : -1) * (this.sort.isAsc ? 1 : -1)
-    //         });
-    //         break;
-    //       case 'month':
-    //
-    //         list = list.filter(element => {
-    //           for ( var n in this.payments ) {
-    //             var createdday = this.$dayjs(this.payments[n].pay.sentAt * 1000).format('YYYY/MM')
-    //             if (element.info.userid === this.payments[n].pay.talentId && thismonth === createdday) {
-    //               return element
-    //             }
-    //           }
-    //         })
-    //
-    //         list.sort((a, b) => {
-    //
-    //           var salesa = 0
-    //           var salesb = 0
-    //
-    //           for ( var n in this.payments ) {
-    //             var createdday = this.$dayjs(this.payments[n].pay.sentAt * 1000).format('YYYY/MM')
-    //             if (a.info.userid === this.payments[n].pay.talentId && thismonth === createdday) {
-    //               salesa += this.payments[n].pay.balance
-    //             }
-    //             if (b.info.userid === this.payments[n].pay.talentId && thismonth === createdday) {
-    //               salesb += this.payments[n].pay.balance
-    //             }
-    //           }
-    //
-    //           a = salesa
-    //           b = salesb
-    //
-    //           return (a === b ? 0 : a > b ? 1 : -1) * (this.sort.isAsc ? 1 : -1)
-    //         });
-    //         break;
-    //       default:
-    //     }
-    //   }
-    //
-    //   // タレント登録の方
-    //   if (!this.talentssale) {
-    //
-    //     if (this.selecttoday) {
-    //       list = list.filter(element => {
-    //         const createdat = this.$dayjs(element.info.joined * 1000).format('YYYY/MM/DD')
-    //         const dayjsnow = this.$dayjs().format('YYYY/MM/DD')
-    //         if (createdat == dayjsnow) {
-    //           return element
-    //           }
-    //       })
-    //     }
-    //
-    //     if (this.selectweek) {
-    //       list = list.filter(element => {
-    //         const createdat = this.$dayjs(element.info.joined * 1000).startOf('week').format('YYYY/MM/DD')
-    //         const dayjsnow = this.$dayjs().startOf('week').format('YYYY/MM/DD')
-    //         if (createdat == dayjsnow) {
-    //           return element
-    //         }
-    //       })
-    //     }
-    //
-    //     if (this.selectmonth) {
-    //       list = list.filter(element => {
-    //         const createdat = this.$dayjs(element.info.joined * 1000).format('YYYY/MM')
-    //         const dayjsnow = this.$dayjs().format('YYYY/MM')
-    //         if (createdat == dayjsnow) {
-    //           return element
-    //         }
-    //       })
-    //     }
-    //
-    //     if (this.selectName) {
-    //       list = list.filter(element => {
-    //         if ( element.info.nickName ) {
-    //           if ( element.info.nickName.indexOf(this.selectName) != -1) {
-    //             return element.info.nickName
-    //           }
-    //         }
-    //       });
-    //     }
-    //
-    //   }
-    //
-    //   return list;
-    // }
+    talents() {
+      const items = this.$store.getters['talent/talents']
+      // const payments = this.payments
+
+      const list = items.slice()
+
+      if (this.sort.key) {
+        list.sort((a, b) => {
+          a = a.info[this.sort.key]
+          b = b.info[this.sort.key]
+
+          return (a === b ? 0 : a > b ? 1 : -1) * (this.sort.isAsc ? 1 : -1)
+        })
+      }
+
+      // タレント売り上げの方
+      // if (this.talentssale) {
+      //
+      //   var today = this.$dayjs().format('YYYY/MM/DD')
+      //   var thismonth = this.$dayjs().format('YYYY/MM')
+      //   var thisweek = this.$dayjs().startOf('week').format('YYYY/MM/DD')
+      //
+      //   switch (this.paymentstate) {
+      //     case 'all':
+      //
+      //       // 売り上げあるタレントのみ表示
+      //       list = list.filter(element => {
+      //         if (this.payments.find(p => p.pay.talentId === element.info.userid)) {
+      //           return element
+      //         }
+      //       })
+      //
+      //       list.sort((a, b) => {
+      //
+      //         var salesa = 0
+      //         var salesb = 0
+      //
+      //         for ( var n in this.payments ) {
+      //           if (a.info.userid === this.payments[n].pay.talentId) {
+      //             salesa += this.payments[n].pay.balance
+      //           }
+      //           if (b.info.userid === this.payments[n].pay.talentId) {
+      //             salesb += this.payments[n].pay.balance
+      //           }
+      //         }
+      //
+      //         a = salesa
+      //         b = salesb
+      //
+      //         return (a === b ? 0 : a > b ? 1 : -1) * (this.sort.isAsc ? 1 : -1)
+      //       });
+      //
+      //       break;
+      //     case 'day':
+      //
+      //       list = list.filter(element => {
+      //         for ( var n in this.payments ) {
+      //           var createdday = this.$dayjs(this.payments[n].pay.sentAt * 1000).format('YYYY/MM/DD')
+      //           if (element.info.userid === this.payments[n].pay.talentId && today === createdday) {
+      //             return element
+      //           }
+      //         }
+      //       })
+      //
+      //       list.sort((a, b) => {
+      //
+      //         var salesa = 0
+      //         var salesb = 0
+      //
+      //         for ( var n in this.payments ) {
+      //           var createdday = this.$dayjs(this.payments[n].pay.sentAt * 1000).format('YYYY/MM/DD')
+      //           if (a.info.userid === this.payments[n].pay.talentId && today === createdday) {
+      //             salesa += this.payments[n].pay.balance
+      //           }
+      //           if (b.info.userid === this.payments[n].pay.talentId && today === createdday) {
+      //             salesb += this.payments[n].pay.balance
+      //           }
+      //         }
+      //
+      //         a = salesa
+      //         b = salesb
+      //
+      //         return (a === b ? 0 : a > b ? 1 : -1) * (this.sort.isAsc ? 1 : -1)
+      //       });
+      //       break;
+      //     case 'week':
+      //
+      //       list = list.filter(element => {
+      //         for ( var n in this.payments ) {
+      //           var createdday = this.$dayjs(this.payments[n].pay.sentAt * 1000).startOf('week').format('YYYY/MM/DD')
+      //           if (element.info.userid === this.payments[n].pay.talentId && thisweek === createdday) {
+      //             return element
+      //           }
+      //         }
+      //       })
+      //
+      //       list.sort((a, b) => {
+      //
+      //         var salesa = 0
+      //         var salesb = 0
+      //
+      //         for ( var n in this.payments ) {
+      //           var createdday = this.$dayjs(this.payments[n].pay.sentAt * 1000).startOf('week').format('YYYY/MM/DD')
+      //           if (a.info.userid === this.payments[n].pay.talentId && thisweek === createdday) {
+      //             salesa += this.payments[n].pay.balance
+      //           }
+      //           if (b.info.userid === this.payments[n].pay.talentId && thisweek === createdday) {
+      //             salesb += this.payments[n].pay.balance
+      //           }
+      //         }
+      //
+      //         a = salesa
+      //         b = salesb
+      //
+      //         return (a === b ? 0 : a > b ? 1 : -1) * (this.sort.isAsc ? 1 : -1)
+      //       });
+      //       break;
+      //     case 'month':
+      //
+      //       list = list.filter(element => {
+      //         for ( var n in this.payments ) {
+      //           var createdday = this.$dayjs(this.payments[n].pay.sentAt * 1000).format('YYYY/MM')
+      //           if (element.info.userid === this.payments[n].pay.talentId && thismonth === createdday) {
+      //             return element
+      //           }
+      //         }
+      //       })
+      //
+      //       list.sort((a, b) => {
+      //
+      //         var salesa = 0
+      //         var salesb = 0
+      //
+      //         for ( var n in this.payments ) {
+      //           var createdday = this.$dayjs(this.payments[n].pay.sentAt * 1000).format('YYYY/MM')
+      //           if (a.info.userid === this.payments[n].pay.talentId && thismonth === createdday) {
+      //             salesa += this.payments[n].pay.balance
+      //           }
+      //           if (b.info.userid === this.payments[n].pay.talentId && thismonth === createdday) {
+      //             salesb += this.payments[n].pay.balance
+      //           }
+      //         }
+      //
+      //         a = salesa
+      //         b = salesb
+      //
+      //         return (a === b ? 0 : a > b ? 1 : -1) * (this.sort.isAsc ? 1 : -1)
+      //       });
+      //       break;
+      //     default:
+      //   }
+      // }
+      //
+      // // タレント登録の方
+      // if (!this.talentssale) {
+      //
+      //   if (this.selecttoday) {
+      //     list = list.filter(element => {
+      //       const createdat = this.$dayjs(element.info.joined * 1000).format('YYYY/MM/DD')
+      //       const dayjsnow = this.$dayjs().format('YYYY/MM/DD')
+      //       if (createdat == dayjsnow) {
+      //         return element
+      //         }
+      //     })
+      //   }
+      //
+      //   if (this.selectweek) {
+      //     list = list.filter(element => {
+      //       const createdat = this.$dayjs(element.info.joined * 1000).startOf('week').format('YYYY/MM/DD')
+      //       const dayjsnow = this.$dayjs().startOf('week').format('YYYY/MM/DD')
+      //       if (createdat == dayjsnow) {
+      //         return element
+      //       }
+      //     })
+      //   }
+      //
+      //   if (this.selectmonth) {
+      //     list = list.filter(element => {
+      //       const createdat = this.$dayjs(element.info.joined * 1000).format('YYYY/MM')
+      //       const dayjsnow = this.$dayjs().format('YYYY/MM')
+      //       if (createdat == dayjsnow) {
+      //         return element
+      //       }
+      //     })
+      //   }
+      //
+      //   if (this.selectName) {
+      //     list = list.filter(element => {
+      //       if ( element.info.nickName ) {
+      //         if ( element.info.nickName.indexOf(this.selectName) != -1) {
+      //           return element.info.nickName
+      //         }
+      //       }
+      //     });
+      //   }
+      //
+      // }
+
+      return list
+    },
   },
   created() {
     // if (this.adminpartner !== null) {
@@ -372,7 +376,7 @@ export default {
     //
     // } else {
     //
-    //   // this.$store.dispatch('talent/fetchTalents')
+    this.$store.dispatch('talent/fetchTalents')
     //   // this.$store.dispatch('payment/fetchPayments')
     //   // this.$store.dispatch('talk/fetchTalks')
     //

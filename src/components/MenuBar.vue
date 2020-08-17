@@ -11,13 +11,9 @@
           <div class="menu-contents">
             <a class="links"><p>出品者</p></a>
             <a class="links"><p>購入者</p></a>
-            <a class="links"><p>レッスンルーム</p></a>
-            <a class="links"><p>レッスン</p></a>
             <a class="links"><p>売り上げ</p></a>
-            <a class="links"><p>入出金</p></a>
             <a class="links"><p>申請承認待ち</p></a>
             <a class="links"><p>ニュース作成</p></a>
-            <a class="links"><p>リテンション</p></a>
           </div>
         </div>
       </div>
