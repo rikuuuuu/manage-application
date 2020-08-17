@@ -52,6 +52,12 @@ import AllSales from '~/components/AllSales'
 // import AllTalents from '~/components/AllTalents'
 
 export default {
+  components: {
+    MenuHead,
+    MonthSales,
+    AllSales,
+    // AllTalents
+  },
   data() {
     return {
       paymentstate: 'all',
@@ -64,54 +70,6 @@ export default {
         isAsc: false,
       },
     }
-  },
-  components: {
-    MenuHead,
-    MonthSales,
-    AllSales,
-    // AllTalents
-  },
-  created() {
-    // this.currentmonth()
-    //
-    // if (this.adminpartner !== null) {
-    //
-    //   var partnerid = this.adminpartner
-    //   this.$store.dispatch('talent/fetchPartnersTalents', { partnerid })
-    //
-    // } else {
-    //
-    //   // this.$store.commit('payout/fleshPayouts') // 出金の変更対応
-    //   // this.$store.dispatch('payout/fetchPayouts')
-    //   // this.$store.dispatch('talk/fetchTalks')
-    //   // this.$store.dispatch('talent/fetchTalents')
-    //   // this.$store.dispatch('payment/fetchPayments')
-    //
-    // }
-  },
-  mounted() {
-    this.pageloading = false
-    this.loading = false
-  },
-  methods: {
-    // sortBy: function(key) {
-    //   this.sort.isAsc = this.sort.key === key ? !this.sort.isAsc : false;
-    //   this.sort.key = key;
-    // },
-    // sortedClass: function(key) {
-    //   return this.sort.key === key ? `sorted ${this.sort.isAsc ? 'asc' : 'desc' }` : '';
-    // },
-    // currentmonth() {
-    //   var now = new Date;
-    //   var month = this.$dayjs(now).format('YYYY / M')
-    //   this.currentMonth = month
-    // },
-    // beforemonth() {
-    //   this.currentMonth = this.$dayjs(this.currentMonth).add(-1, 'month').format('YYYY / M')
-    // },
-    // nextmonth() {
-    //   this.currentMonth = this.$dayjs(this.currentMonth).add(1, 'month').format('YYYY / M')
-    // }
   },
   computed: {
     // adminpartner() {
@@ -175,6 +133,48 @@ export default {
     //   }
     //
     //   return list
+    // }
+  },
+  created() {
+    // this.currentmonth()
+    //
+    // if (this.adminpartner !== null) {
+    //
+    //   var partnerid = this.adminpartner
+    //   this.$store.dispatch('talent/fetchPartnersTalents', { partnerid })
+    //
+    // } else {
+    //
+    //   // this.$store.commit('payout/fleshPayouts') // 出金の変更対応
+    //   // this.$store.dispatch('payout/fetchPayouts')
+    //   // this.$store.dispatch('talk/fetchTalks')
+    //   // this.$store.dispatch('talent/fetchTalents')
+    //   // this.$store.dispatch('payment/fetchPayments')
+    //
+    // }
+  },
+  mounted() {
+    this.pageloading = false
+    this.loading = false
+  },
+  methods: {
+    // sortBy: function(key) {
+    //   this.sort.isAsc = this.sort.key === key ? !this.sort.isAsc : false;
+    //   this.sort.key = key;
+    // },
+    // sortedClass: function(key) {
+    //   return this.sort.key === key ? `sorted ${this.sort.isAsc ? 'asc' : 'desc' }` : '';
+    // },
+    // currentmonth() {
+    //   var now = new Date;
+    //   var month = this.$dayjs(now).format('YYYY / M')
+    //   this.currentMonth = month
+    // },
+    // beforemonth() {
+    //   this.currentMonth = this.$dayjs(this.currentMonth).add(-1, 'month').format('YYYY / M')
+    // },
+    // nextmonth() {
+    //   this.currentMonth = this.$dayjs(this.currentMonth).add(1, 'month').format('YYYY / M')
     // }
   },
 }

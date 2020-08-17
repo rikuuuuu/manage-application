@@ -58,12 +58,10 @@
 
 <script>
 export default {
+  props: ['currentMonth', 'adminpartner'],
   data() {
     return {}
   },
-  props: ['currentMonth', 'adminpartner'],
-  created() {},
-  mounted() {},
   computed: {
     // payments() {
     //   return this.$store.getters['payment/payments']
@@ -161,6 +159,8 @@ export default {
     //   return sales
     // }
   },
+  created() {},
+  mounted() {},
 }
 </script>
 
