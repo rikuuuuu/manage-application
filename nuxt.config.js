@@ -34,9 +34,9 @@ module.exports = {
     duration: 2000
   },
   srcDir: 'src/',
-  buildDir: 'functions/nuxt',
+  // buildDir: 'functions/nuxt',
   build: {
-    publicPath: '/assets/',
+    // publicPath: '/assets/',
     extractCSS: true,
     extend (config, { isDev, isClient }) {
       if (isDev && isClient) {
