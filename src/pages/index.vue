@@ -1,20 +1,107 @@
 <template>
   <div>
     <div>
-      <menu-head :title="'管理画面'"></menu-head>
+      <menu-head :title="'管理画面'">
+        <div class="home-container">
+          <div class="sales-contents main-contents">
+            <div class="sales-title flex">
+              <h2>売り上げ</h2>
+            </div>
+            <All-sales :toppage="toppage" />
+            <div class="flex bottom-contents">
+              <div class="approval-contents">
+                <div class="approval-title">
+                  <h2>申請承認待ち</h2>
+                </div>
+                <div class="approval-contents-boxes flex">
+                  <a class="links fansbox">
+                    <div class="approval-contents-box box-shadow">
+                      <div class="box-title">
+                        <h3>購入者</h3>
+                      </div>
+                      <div class="box-value maincolor">
+                        <div v-show="loading" class="loader"></div>
+                        <div v-show="!loading">
+                          <p>0<span> 人</span></p>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                  <a class="links fansbox">
+                    <div class="approval-contents-box box-shadow">
+                      <div class="box-title">
+                        <h3>出品者</h3>
+                      </div>
+                      <div class="box-value maincolor">
+                        <div v-show="loading" class="loader"></div>
+                        <div v-show="!loading">
+                          <p>0<span> 人</span></p>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+              </div>
+              <div class="users-count-contents">
+                <div class="users-count-title">
+                  <h2>総ユーザー数</h2>
+                </div>
+                <div class="users-count-contents-boxes flex">
+                  <a class="links fansbox">
+                    <div class="users-count-contents-box box-shadow">
+                      <div class="box-title">
+                        <h3>購入者</h3>
+                      </div>
+                      <div class="box-value maincolor">
+                        <div v-show="loading" class="loader"></div>
+                        <div v-show="!loading">
+                          <p>0<span> 人</span></p>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                  <a class="links fansbox">
+                    <div class="users-count-contents-box box-shadow">
+                      <div class="box-title">
+                        <h3>出品者</h3>
+                      </div>
+                      <div class="box-value maincolor">
+                        <div v-show="loading" class="loader"></div>
+                        <div v-show="!loading">
+                          <p>0<span> 人</span></p>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </menu-head>
     </div>
   </div>
 </template>
 
 <script>
 import MenuHead from '~/components/MenuHead'
+import AllSales from '~/components/AllSales'
 
 export default {
   components: {
     MenuHead,
+    AllSales,
   },
   data() {
-    return {}
+    return {
+      loading: true,
+      toppage: true,
+      pageloading: true,
+    }
+  },
+  created() {},
+  mounted() {
+    this.loading = false
   },
 }
 </script>
