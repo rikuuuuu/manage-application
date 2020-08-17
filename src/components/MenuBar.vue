@@ -9,11 +9,11 @@
         </div>
         <div class="menu-container">
           <div class="menu-contents">
-            <a class="links"><p>出品者</p></a>
-            <a class="links"><p>購入者</p></a>
-            <a class="links"><p>売り上げ</p></a>
-            <a class="links"><p>申請承認待ち</p></a>
-            <a class="links"><p>ニュース作成</p></a>
+            <a href="/talents/all" class="links"><p>出品者</p></a>
+            <a href="/fans/all" class="links"><p>購入者</p></a>
+            <a href="/sales/all" class="links"><p>売り上げ</p></a>
+            <a href="/approval/all" class="links"><p>申請承認待ち</p></a>
+            <a href="/news/create" class="links"><p>ニュース作成</p></a>
           </div>
         </div>
       </div>

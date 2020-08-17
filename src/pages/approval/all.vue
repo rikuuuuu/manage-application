@@ -6,14 +6,14 @@
         <div class="approval-contents main-contents">
           <div class="approval-title flex">
             <h2>購入者</h2>
-            <p>0人</p>
+            <p>{{ apfans.length }}人</p>
           </div>
           <div v-show="loading" class="loader"></div>
           <div v-show="!loading">
             <div class="approval-contents-boxes flex calusel">
-              <!-- <Ap-Fan v-for="(fan, index) in apfans" :key="index" :fan="fan" /> -->
+              <Ap-Fan v-for="(fan, index) in apfans" :key="index" :fan="fan" />
             </div>
-            <p class="no-fans">
+            <p v-show="apfans.length === 0" class="no-fans">
               申請待ちの購入者はいません
             </p>
           </div>
@@ -21,14 +21,18 @@
         <div class="approval-contents main-contents">
           <div class="approval-title flex">
             <h2>出品者</h2>
-            <p>0人</p>
+            <p>{{ aptalents.length }}人</p>
           </div>
           <div v-show="talentsloading" class="loader"></div>
           <div v-show="!talentsloading">
             <div class="approval-contents-boxes flex calusel">
-              <!-- <Ap-Talent v-for="(talent, index) in aptalents" :key="index" :talent="talent" /> -->
+              <Ap-Talent
+                v-for="(talent, index) in aptalents"
+                :key="index"
+                :talent="talent"
+              />
             </div>
-            <p class="no-fans">
+            <p v-show="aptalents.length === 0" class="no-fans">
               申請待ちの出品者はいません
             </p>
           </div>
@@ -40,14 +44,14 @@
 
 <script>
 import MenuHead from '~/components/MenuHead'
-// import ApFan from '~/components/ApFan'
-// import ApTalent from '~/components/ApTalent'
+import ApFan from '~/components/ApFan'
+import ApTalent from '~/components/ApTalent'
 
 export default {
   components: {
     MenuHead,
-    // ApFan,
-    // ApTalent
+    ApFan,
+    ApTalent,
   },
   data() {
     return {
@@ -57,19 +61,19 @@ export default {
     }
   },
   computed: {
-    // apfans() {
-    //   return this.$store.getters['fan/apfans']
-    // },
-    // aptalents() {
-    //   return this.$store.getters['talent/aptalents']
-    // },
+    apfans() {
+      return this.$store.getters['fan/apfans']
+    },
+    aptalents() {
+      return this.$store.getters['talent/aptalents']
+    },
   },
   created() {
     // this.$store.commit('fan/fleshapFans')
     // this.$store.commit('talent/fleshapTalents')
     //
-    // this.$store.dispatch('fan/fetchFans')
-    // this.$store.dispatch('talent/fetchTalents')
+    this.$store.dispatch('fan/fetchFans')
+    this.$store.dispatch('talent/fetchTalents')
     this.talentsloading = false
     this.pageloading = false
     this.loading = false
