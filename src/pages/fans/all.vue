@@ -176,7 +176,7 @@ export default {
       if (this.selectName) {
         list = list.filter((element) => {
           if (element.info.nickName) {
-            if (element.info.nickName.includes(this.selectName) !== -1) {
+            if (element.info.nickName.includes(this.selectName)) {
               return element.info.nickName
             }
           }

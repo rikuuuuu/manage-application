@@ -22,7 +22,7 @@
                       <div class="box-value maincolor">
                         <div v-show="loading" class="loader"></div>
                         <div v-show="!loading">
-                          <p>0<span> 人</span></p>
+                          <p>{{ apfans.length }}<span> 人</span></p>
                         </div>
                       </div>
                     </div>
@@ -35,7 +35,7 @@
                       <div class="box-value maincolor">
                         <div v-show="loading" class="loader"></div>
                         <div v-show="!loading">
-                          <p>0<span> 人</span></p>
+                          <p>{{ aptalents.length }}<span> 人</span></p>
                         </div>
                       </div>
                     </div>
@@ -55,7 +55,7 @@
                       <div class="box-value maincolor">
                         <div v-show="loading" class="loader"></div>
                         <div v-show="!loading">
-                          <p>0<span> 人</span></p>
+                          <p>{{ fans.length }}<span> 人</span></p>
                         </div>
                       </div>
                     </div>
@@ -68,7 +68,7 @@
                       <div class="box-value maincolor">
                         <div v-show="loading" class="loader"></div>
                         <div v-show="!loading">
-                          <p>0<span> 人</span></p>
+                          <p>{{ talents.length }}<span> 人</span></p>
                         </div>
                       </div>
                     </div>
@@ -92,6 +92,20 @@ export default {
     MenuHead,
     AllSales,
   },
+  computed: {
+    fans() {
+      return this.$store.getters['fan/fans']
+    },
+    talents() {
+      return this.$store.getters['talent/talents']
+    },
+    apfans() {
+      return this.$store.getters['fan/apfans']
+    },
+    aptalents() {
+      return this.$store.getters['talent/aptalents']
+    },
+  },
   data() {
     return {
       loading: true,
@@ -101,6 +115,8 @@ export default {
   },
   created() {},
   mounted() {
+    this.$store.dispatch('talent/fetchTalents')
+    this.$store.dispatch('fan/fetchFans')
     this.loading = false
   },
 }

@@ -171,7 +171,7 @@ export default {
       const items = this.$store.getters['talent/talents']
       // const payments = this.payments
 
-      const list = items.slice()
+      let list = items.slice()
 
       if (this.sort.key) {
         list.sort((a, b) => {
@@ -353,15 +353,15 @@ export default {
       //     })
       //   }
       //
-      //   if (this.selectName) {
-      //     list = list.filter(element => {
-      //       if ( element.info.nickName ) {
-      //         if ( element.info.nickName.indexOf(this.selectName) != -1) {
-      //           return element.info.nickName
-      //         }
-      //       }
-      //     });
-      //   }
+      if (this.selectName) {
+        list = list.filter((element) => {
+          if (element.info.nickName) {
+            if (element.info.nickName.includes(this.selectName)) {
+              return element.info.nickName
+            }
+          }
+        })
+      }
       //
       // }
 

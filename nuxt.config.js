@@ -18,7 +18,8 @@ module.exports = {
     '@/assets/css/main.scss'
   ],
    plugins: [
-     '~/plugins/firebase'
+     '~/plugins/firebase',
+     '~/plugins/day.js',
    ],
   components: true,
   buildModules: [
