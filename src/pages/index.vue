@@ -14,7 +14,7 @@
                   <h2>申請承認待ち</h2>
                 </div>
                 <div class="approval-contents-boxes flex">
-                  <a class="links fansbox">
+                  <a href="/approval/all" class="links fansbox">
                     <div class="approval-contents-box box-shadow">
                       <div class="box-title">
                         <h3>購入者</h3>
@@ -27,7 +27,7 @@
                       </div>
                     </div>
                   </a>
-                  <a class="links fansbox">
+                  <a href="/approval/all" class="links fansbox">
                     <div class="approval-contents-box box-shadow">
                       <div class="box-title">
                         <h3>出品者</h3>
@@ -47,7 +47,7 @@
                   <h2>総ユーザー数</h2>
                 </div>
                 <div class="users-count-contents-boxes flex">
-                  <a class="links fansbox">
+                  <a href="/fans/all" class="links fansbox">
                     <div class="users-count-contents-box box-shadow">
                       <div class="box-title">
                         <h3>購入者</h3>
@@ -60,7 +60,7 @@
                       </div>
                     </div>
                   </a>
-                  <a class="links fansbox">
+                  <a href="/talents/all" class="links fansbox">
                     <div class="users-count-contents-box box-shadow">
                       <div class="box-title">
                         <h3>出品者</h3>

@@ -24,21 +24,14 @@ export default {
   data() {
     return {
       isMenu: false,
-      // isAdminPartner: false
     }
   },
   props: ['title'],
   mounted() {
     // const auth = this.$store.state.auth
-    // const adminpartner = this.$store.state.adminpartner
-    //
-    // if (adminpartner !== null) {
-    //   this.isAdminPartner = true
-    //   return
-    // }
-    //
     // if (auth !== true) {
     //   return this.$router.push('/admin/login')
+    // }
   },
   methods: {
     menubar() {

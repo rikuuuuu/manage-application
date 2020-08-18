@@ -59,7 +59,7 @@ export default {
     login() {
       if (this.password === this.pass.id) {
         // const auth = true
-        // this.$store.commit('changeAuth', auth);
+        // this.$store.commit('changeAuth', auth)
         this.$toast.success('ログインしました')
         this.$router.push('/')
       } else {
