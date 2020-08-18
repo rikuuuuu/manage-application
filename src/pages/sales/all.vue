@@ -9,9 +9,23 @@
         <All-sales />
         <div class="bottom-contents">
           <div class="sales-title flex">
-            <button class="leftb" type="button" name="button">＜</button>
-            <h2>0月</h2>
-            <button class="rightb" type="button" name="button">＞</button>
+            <button
+              class="leftb"
+              type="button"
+              name="button"
+              @click="beforemonth"
+            >
+              ＜
+            </button>
+            <h2>{{ currentMonth }}月</h2>
+            <button
+              class="rightb"
+              type="button"
+              name="button"
+              @click="nextmonth"
+            >
+              ＞
+            </button>
           </div>
           <div class="">
             <transition>
@@ -64,6 +78,7 @@ export default {
       talentssale: true,
       loading: true,
       pageloading: false,
+      currenttime: '',
       currentMonth: '',
       sort: {
         key: '',
@@ -136,7 +151,7 @@ export default {
     // }
   },
   created() {
-    // this.currentmonth()
+    this.currentmonth()
     //
     // if (this.adminpartner !== null) {
     //
@@ -165,17 +180,23 @@ export default {
     // sortedClass: function(key) {
     //   return this.sort.key === key ? `sorted ${this.sort.isAsc ? 'asc' : 'desc' }` : '';
     // },
-    // currentmonth() {
-    //   var now = new Date;
-    //   var month = this.$dayjs(now).format('YYYY / M')
-    //   this.currentMonth = month
-    // },
-    // beforemonth() {
-    //   this.currentMonth = this.$dayjs(this.currentMonth).add(-1, 'month').format('YYYY / M')
-    // },
-    // nextmonth() {
-    //   this.currentMonth = this.$dayjs(this.currentMonth).add(1, 'month').format('YYYY / M')
-    // }
+    currentmonth() {
+      const now = new Date()
+      this.currenttime = this.$dayjs(now).format('YYYY/MM')
+      this.currentMonth = this.$dayjs(this.currenttime).format('YYYY / M')
+    },
+    beforemonth() {
+      this.currenttime = this.$dayjs(this.currenttime)
+        .add(-1, 'month')
+        .format('YYYY/MM')
+      this.currentMonth = this.$dayjs(this.currenttime).format('YYYY / M')
+    },
+    nextmonth() {
+      this.currenttime = this.$dayjs(this.currenttime)
+        .add(1, 'month')
+        .format('YYYY/MM')
+      this.currentMonth = this.$dayjs(this.currenttime).format('YYYY / M')
+    },
   },
 }
 </script>
